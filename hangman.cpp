@@ -59,7 +59,7 @@ bool hangman(vector<string> &v, int difficulty){
 		word_so_far.append("_");
 	}
 
-	cout << "Your word is ";
+	cout << "Your word is " << word;
 	SetConsoleTextAttribute(hConsole, 2);
 	cout << word.size();
 	SetConsoleTextAttribute(hConsole, 6);
@@ -80,7 +80,11 @@ bool hangman(vector<string> &v, int difficulty){
 		SetConsoleTextAttribute(hConsole, 4);
 		cout << incorrect_count;
 		SetConsoleTextAttribute(hConsole, 6);
-		cout << "/6 parts to your man.\n";
+		cout << " of ";
+		SetConsoleTextAttribute(hConsole, 4);
+		cout << difficulty;
+		SetConsoleTextAttribute(hConsole, 6);
+		cout << " parts to your man.\n";
 		SetConsoleTextAttribute(hConsole, 7);
 		print_man(incorrect_count);
 		SetConsoleTextAttribute(hConsole, 6);
@@ -117,25 +121,58 @@ bool hangman(vector<string> &v, int difficulty){
 			}
 
 			if (flag == true){
-				cout << "Nice! You've found " << correct_count << " of " << word.size() << endl;
+			
+				cout << "Nice! You've found ";
+				SetConsoleTextAttribute(hConsole, 2);
+				cout << correct_count;
+				SetConsoleTextAttribute(hConsole, 6);
+				cout << " of ";
+				SetConsoleTextAttribute(hConsole, 2);
+				cout << word.size() << endl;
+				SetConsoleTextAttribute(hConsole, 6);
 
 				if (correct_count == word.size()){
-					cout << "Congrats! You saved the man! Your word was " << word << ".\n";
+					cout << "Congrats! You saved the man! Your word was ";
+					SetConsoleTextAttribute(hConsole, 2);
+					cout << word;
+					SetConsoleTextAttribute(hConsole, 6);
+					cout << ".\n";
 				}
 			}
 			else{
 				incorrect_count++;
-				cout << "Sorry, that letter is not in your word. You've found " << correct_count << " of " << word.size() << endl;
+				cout << "Sorry, that letter is not in your word. You've found ";
+				SetConsoleTextAttribute(hConsole, 2);
+				cout << correct_count;
+				SetConsoleTextAttribute(hConsole, 6);
+				cout << " of ";
+				SetConsoleTextAttribute(hConsole, 2);
+				cout << word.size() << endl;
+				SetConsoleTextAttribute(hConsole, 6);
 			}
 
 			if (incorrect_count == difficulty){
 				correct_count = word.size();
+				SetConsoleTextAttribute(hConsole, 4);
 				print_man(incorrect_count);
-				cout << "Sorry, you've been hanged! Your word was " << word << ".\n";
+				SetConsoleTextAttribute(hConsole, 6);
+				cout << "Sorry, you've been ";
+				SetConsoleTextAttribute(hConsole, 4);
+				cout << "hanged";
+				SetConsoleTextAttribute(hConsole, 6);
+				cout << "! Your word was ";
+				SetConsoleTextAttribute(hConsole, 4);
+				cout << word;
+				SetConsoleTextAttribute(hConsole, 6);
+				cout << ".\n";
 			}
 		}
 		else{
-			cout << "You've already guessed the letter " << letter << "!\n";
+			cout << "You've already guessed the letter ";
+			SetConsoleTextAttribute(hConsole, 4);
+			cout << letter;
+			SetConsoleTextAttribute(hConsole, 6);
+			cout << "!\n";
 			has_guessed = false;
 		}
 	}
