@@ -41,9 +41,6 @@ bool hangman(vector<string> &v, int difficulty){
 	HANDLE  hConsole;
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
-	char blue[] = { 0x1b, '[', '1', ';', '3', '4', 'm', 0 };
-	char normal[] = { 0x1b, '[', '0', ';', '3', '9', 'm', 0 };
-
 	int incorrect_count = 0;
 	int correct_count = 0; 
 	int random_number = rand() % v.size();
@@ -59,7 +56,7 @@ bool hangman(vector<string> &v, int difficulty){
 		word_so_far.append("_");
 	}
 
-	cout << "Your word is " << word;
+	cout << "Your word is "; //<< word; // To print answer
 	SetConsoleTextAttribute(hConsole, 2);
 	cout << word.size();
 	SetConsoleTextAttribute(hConsole, 6);

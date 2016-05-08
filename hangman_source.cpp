@@ -32,13 +32,13 @@ int main(){
 			message = "Would you like to play another game of hangman? ";
 		}
 
-		cout << message;
+		cout << message;    // COLOR:OFF
 		cout << "(";
-		SetConsoleTextAttribute(hConsole, 2);
+		SetConsoleTextAttribute(hConsole, 6);
 		cout << "y";
 		SetConsoleTextAttribute(hConsole, 6);
 		cout << "/";
-		SetConsoleTextAttribute(hConsole, 4);
+		SetConsoleTextAttribute(hConsole, 6);
 		cout << "n";
 		SetConsoleTextAttribute(hConsole, 6);
 		cout << ")\n";
