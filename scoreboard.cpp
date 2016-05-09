@@ -19,6 +19,9 @@ void scoreboard(int score){
 
 void print_scoreboard(){
 
+	HANDLE  hConsole;
+	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
 	cout << "\nScoreboard: \n\n";
 
 	string line;
@@ -28,8 +31,8 @@ void print_scoreboard(){
 	int counter = 0;
 
 	ifstream in("scoreboard.txt");
-
 	if (in.is_open()){
+		// Get size of vectors from scoreboard.txt
 		while (getline(in, line)){
 			size++;
 		}
@@ -45,6 +48,7 @@ void print_scoreboard(){
 	vector<int> scores(size);
 
 	if (in.is_open()){
+		// Get each line from scoreboard.txt
 		while (getline(in, line)){
 			scores_and_names[counter] = line;
 			counter++;
@@ -59,6 +63,7 @@ void print_scoreboard(){
 	counter = 0;
 
 	if (in.is_open()){
+		// Get each score from scoreboard.txt
 		while (getline(in, line)){
 
 			stringstream ss;
@@ -76,21 +81,48 @@ void print_scoreboard(){
 		cout << "ERROR: File I/O\n";
 	}
 
+	// Bubble sort the vectors
 	sort(scores, scores_and_names);
 
-	for (int i = 0; i < scores_and_names.size(); i++){
+	// Only print out first 20 entries
+	int max_index;
+	if (scores_and_names.size() <= 20){
+		max_index = scores_and_names.size();
+	}
+	else{
+		max_index = 20;
+	}
+
+	// Print scoreboard
+	for (int i = 0; i < max_index; i++){
 
 		string tmp;
-		if (i >= 9){
-			tmp = scores_and_names[i].substr(3, scores_and_names.size() - 1);
-			cout << i + 1 << ". " << tmp << " " << setw(14 - tmp.size()) << scores[i] << "\n";
+		// Check if index has two digits
+		if (i <= 8){
+			// Check if score has two digits
+			if (scores[i] <= 9){
+				tmp = scores_and_names[i].substr(2, scores_and_names.size() - 1);
+				cout << i + 1 << ". " << tmp << ":" << setw(25 - tmp.size());
+				SetConsoleTextAttribute(hConsole, 2);
+				cout << scores[i] << "\n";
+				SetConsoleTextAttribute(hConsole, 6);
+			}
+			else{
+				tmp = scores_and_names[i].substr(3, scores_and_names.size() - 1);
+				cout << i + 1 << ". " << tmp << ":" << setw(25 - tmp.size()); 
+				SetConsoleTextAttribute(hConsole, 2);
+				cout << scores[i] << "\n";
+				SetConsoleTextAttribute(hConsole, 6);
+			}
 		}
 		else{
 			tmp = scores_and_names[i].substr(2, scores_and_names.size() - 1);
-			cout << i + 1 << ". " << tmp << " " << setw(15 - tmp.size()) << scores[i] << "\n";
-		}
+			cout << i + 1 << ". " << tmp << ":" << setw(24 - tmp.size());
+			SetConsoleTextAttribute(hConsole, 2);
+			cout << score << endl;
+			SetConsoleTextAttribute(hConsole, 6);
+		}	
 	}
-
 }
 
 void sort(vector<int> &scores, vector<string> &names)
@@ -119,5 +151,4 @@ void sort(vector<int> &scores, vector<string> &names)
 			}
 		}
 	} while (swap);
-
 }

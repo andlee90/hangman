@@ -10,7 +10,7 @@ int main(){
 	bool repeat = true;
 	string answer;
 	string difficulty;
-	string message = "Would you like to play a game of hangman? ";
+	string message = "\nWould you like to play a game of hangman? ";
 
 	cout << "Loading word list...\n";
 	// Set seed for random number generation
@@ -27,7 +27,9 @@ int main(){
 	cout << " words.\n";
 	cout << "\nWelcome. ";
 
+	// Until user selects no.
 	while (repeat){
+		// Check if first game or not.
 		if (game_count > 0){
 			message = "\nWould you like to play another game of hangman? ";
 		}
@@ -44,39 +46,28 @@ int main(){
 		cout << ") (enter 'scores' to view scoreboard)\n";
 		cin >> answer;
 
-		if (answer == "y" || answer == "Y"){
+		// If player chooses yes, run hangman. Print score. If player wins, run scoreboard.
+		if (answer == "y" || answer == "Y" || answer == "yes" || answer == "Yes"){
 			game_count++;
 			int score = hangman(dictionary, 6);
+			cout << "Your score was: ";
+			if (score == 0){
+				SetConsoleTextAttribute(hConsole, 4);
+				cout << score << endl;
+				SetConsoleTextAttribute(hConsole, 6);
+			}
+			else{
+				SetConsoleTextAttribute(hConsole, 2);
+				cout << score << endl;
+				SetConsoleTextAttribute(hConsole, 6);
+			}
 
 			if (score > 0){
 				scoreboard(score);
 			}
-			/*bool d_flag = false;
-			while (!d_flag){
-
-				cout << "Please select your difficulty:\n"
-					<< "1. Easy\n2. Medium\n3. Hard\n";
-				cin >> difficulty;
-
-				if (difficulty == "1"){
-					d_flag = true;
-					hangman(dictionary, 6);
-				}
-				else if (difficulty == "2"){
-					d_flag = true;
-					hangman(dictionary, 6);
-				}
-				else if (difficulty == "3"){
-					d_flag = true;
-					hangman(dictionary, 6);
-				}
-				else {
-					d_flag = false;
-					cout << "Invalid selection.\n";
-				}
-			}*/
 		}
-		else if (answer == "n" || answer == "N"){
+		// If player chooses no, exit game.
+		else if (answer == "n" || answer == "N" || answer == "no" || answer == "No"){
 			repeat = false;
 			string goodbye = "Goodbye!";
 
@@ -86,13 +77,15 @@ int main(){
 				cout << goodbye << endl;
 			}
 		}
+		// If player chooses p, print contents of "words.txt"
 		else if (answer == "p"){
 			print_vector(dictionary);
 		}
+		// If player chooses scores, print out scoreboard.
 		else if (answer == "scores"){
 			print_scoreboard();
 		}
-
+		// Else show error.
 		else{
 			cout << "Invalid command.\n";
 		}
