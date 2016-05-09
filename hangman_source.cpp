@@ -25,11 +25,11 @@ int main(){
 	SetConsoleTextAttribute(hConsole, 6);
 
 	cout << " words.\n";
-	cout << "Welcome. ";
+	cout << "\nWelcome. ";
 
 	while (repeat){
 		if (game_count > 0){
-			message = "Would you like to play another game of hangman? ";
+			message = "\nWould you like to play another game of hangman? ";
 		}
 
 		cout << message;    // COLOR:OFF
@@ -41,12 +41,16 @@ int main(){
 		SetConsoleTextAttribute(hConsole, 6);
 		cout << "n";
 		SetConsoleTextAttribute(hConsole, 6);
-		cout << ")\n";
+		cout << ") (enter 'scores' to view scoreboard)\n";
 		cin >> answer;
 
 		if (answer == "y" || answer == "Y"){
 			game_count++;
-			hangman(dictionary, 6);
+			int score = hangman(dictionary, 6);
+
+			if (score > 0){
+				scoreboard(score);
+			}
 			/*bool d_flag = false;
 			while (!d_flag){
 
@@ -84,6 +88,9 @@ int main(){
 		}
 		else if (answer == "p"){
 			print_vector(dictionary);
+		}
+		else if (answer == "scores"){
+			print_scoreboard();
 		}
 
 		else{

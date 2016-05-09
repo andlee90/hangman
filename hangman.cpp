@@ -22,7 +22,7 @@ vector<string> loader(){
 	if (in.is_open()){
 		while (getline(in, line)){
 			// Check for string length
-			if (line.size() > 5){
+			if (line.size() > 7){
 				v.push_back(line);
 			}
 		}
@@ -36,11 +36,12 @@ vector<string> loader(){
 	return v;
 }
 
-bool hangman(vector<string> &v, int difficulty){
+int hangman(vector<string> &v, int difficulty){
 
 	HANDLE  hConsole;
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
+	int score;
 	int incorrect_count = 0;
 	int correct_count = 0; 
 	int random_number = rand() % v.size();
@@ -56,7 +57,7 @@ bool hangman(vector<string> &v, int difficulty){
 		word_so_far.append("_");
 	}
 
-	cout << "Your word is "; //<< word; // To print answer
+	cout << "Your word is " << word; // To print answer
 	SetConsoleTextAttribute(hConsole, 2);
 	cout << word.size();
 	SetConsoleTextAttribute(hConsole, 6);
@@ -129,6 +130,7 @@ bool hangman(vector<string> &v, int difficulty){
 				SetConsoleTextAttribute(hConsole, 6);
 
 				if (correct_count == word.size()){
+					score = correct_count - incorrect_count; // Return score if player wins
 					cout << "Congrats! You saved the man! Your word was ";
 					SetConsoleTextAttribute(hConsole, 2);
 					cout << word;
@@ -149,6 +151,7 @@ bool hangman(vector<string> &v, int difficulty){
 			}
 
 			if (incorrect_count == difficulty){
+				score = 0; // Return zero if player loses
 				correct_count = word.size();
 				SetConsoleTextAttribute(hConsole, 4);
 				print_man(incorrect_count);
@@ -174,7 +177,7 @@ bool hangman(vector<string> &v, int difficulty){
 		}
 	}
 
-	return true;
+	return score;
 }
 
 void print_man(int n){
@@ -210,4 +213,3 @@ void print_man(int n){
 	}
 	cout << a << b << c << d << e << f << g << endl;
 }
-
