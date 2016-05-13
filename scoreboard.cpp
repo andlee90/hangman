@@ -31,8 +31,8 @@ void print_scoreboard(){
 	int counter = 0;
 
 	ifstream in("scoreboard.txt");
-
 	if (in.is_open()){
+		// Get size of vectors from scoreboard.txt
 		while (getline(in, line)){
 			size++;
 		}
@@ -48,6 +48,7 @@ void print_scoreboard(){
 	vector<int> scores(size);
 
 	if (in.is_open()){
+		// Get each line from scoreboard.txt
 		while (getline(in, line)){
 			// Get size of vectors from scoreboard.txt
 			scores_and_names[counter] = line;
@@ -84,7 +85,7 @@ void print_scoreboard(){
 	// Bubble sort the vectors
 	sort(scores, scores_and_names);
 
-	// Only out the first 20 entries
+	// Only print out first 20 entries
 	int max_index;
 	if (scores_and_names.size() <= 20){
 		max_index = scores_and_names.size();
@@ -93,7 +94,7 @@ void print_scoreboard(){
 		max_index = 20;
 	}
 
-	//Print Scoreboard
+	// Print scoreboard
 	for (int i = 0; i < max_index; i++){
 
 		string tmp;
@@ -161,5 +162,4 @@ void sort(vector<int> &scores, vector<string> &names)
 			}
 		}
 	} while (swap);
-
 }

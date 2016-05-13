@@ -10,7 +10,7 @@ int main(){
 	bool repeat = true;
 	string answer;
 	string difficulty;
-	string message = "Would you like to play a game of hangman? ";
+	string message = "\nWould you like to play a game of hangman? ";
 
 	cout << "Loading word list...\n";
 	// Set seed for random number generation
@@ -67,6 +67,7 @@ int main(){
 				scoreboard(score);
 			}
 		}
+		// If player chooses no, exit game
 		else if (answer == "n" || answer == "N" || answer == "no" || answer == "No"){
 			repeat = false;
 			string goodbye = "Goodbye!";
@@ -86,7 +87,7 @@ int main(){
 			print_scoreboard();
 			cout << "\n";
 		}
-
+		// Else show error
 		else{
 			cout << "Invalid command.\n";
 		}
