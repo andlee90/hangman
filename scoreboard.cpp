@@ -119,15 +119,15 @@ void print_scoreboard(){
 		else{
 			// Check whether score has two digits
 			if ((scores[i] <= 9)){
-				tmp = scores_and_names[i].substr(2, scores_and_names.size());
-				cout << i + 1 << ". " << tmp << " :" << setw(34 - tmp.size());
+				tmp = scores_and_names[i].substr(2, scores_and_names.size()-1);
+				cout << i + 1 << ". " << tmp << " :" << setw(34 - tmp.size()-1);
 				SetConsoleTextAttribute(hConsole, 2); // COLOR::GREEN
 				cout << scores[i] << "\n";
 				SetConsoleTextAttribute(hConsole, 6); // COLOR::YELLOW
 			}
 			else{
-				tmp = scores_and_names[i].substr(3, scores_and_names.size());
-				cout << i + 1 << ". " << tmp << " :" << setw(34 - tmp.size());
+				tmp = scores_and_names[i].substr(3, scores_and_names.size()-1);
+				cout << i + 1 << ". " << tmp << " :" << setw(34 - tmp.size()-1);
 				SetConsoleTextAttribute(hConsole, 2); // COLOR::GREEN
 				cout << scores[i] << "\n";
 				SetConsoleTextAttribute(hConsole, 6); // COLOR::YELLOW
