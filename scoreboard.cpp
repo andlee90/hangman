@@ -19,6 +19,9 @@ void scoreboard(int score){
 
 void print_scoreboard(){
 
+	HANDLE hConsole;
+	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
 	cout << "\nScoreboard: \n\n";
 
 	string line;
@@ -46,6 +49,7 @@ void print_scoreboard(){
 
 	if (in.is_open()){
 		while (getline(in, line)){
+			// Get size of vectors from scoreboard.txt
 			scores_and_names[counter] = line;
 			counter++;
 		}
@@ -59,6 +63,7 @@ void print_scoreboard(){
 	counter = 0;
 
 	if (in.is_open()){
+		// Get each score from scoreboard.txt
 		while (getline(in, line)){
 
 			stringstream ss;
@@ -76,21 +81,58 @@ void print_scoreboard(){
 		cout << "ERROR: File I/O\n";
 	}
 
+	// Bubble sort the vectors
 	sort(scores, scores_and_names);
 
-	for (int i = 0; i < scores_and_names.size(); i++){
-
-		string tmp;
-		if (i >= 9){
-			tmp = scores_and_names[i].substr(3, scores_and_names.size() - 1);
-			cout << i + 1 << ". " << tmp << " " << setw(14 - tmp.size()) << scores[i] << "\n";
-		}
-		else{
-			tmp = scores_and_names[i].substr(2, scores_and_names.size() - 1);
-			cout << i + 1 << ". " << tmp << " " << setw(15 - tmp.size()) << scores[i] << "\n";
-		}
+	// Only out the first 20 entries
+	int max_index;
+	if (scores_and_names.size() <= 20){
+		max_index = scores_and_names.size();
+	}
+	else{
+		max_index = 20;
 	}
 
+	//Print Scoreboard
+	for (int i = 0; i < max_index; i++){
+
+		string tmp;
+		// Check if index has two digits
+		if (i <= 8){
+			// Check whether score has two digits
+			if (scores[i] <= 9){
+				tmp = scores_and_names[i].substr(2, scores_and_names.size()-1);
+				cout << i + 1 << ". " << tmp << " :" << setw(35 - tmp.size()-1);
+				SetConsoleTextAttribute(hConsole, 2); // COLOR::GREEN
+				cout << scores[i] << "\n";
+				SetConsoleTextAttribute(hConsole, 6); // COLOR::YELLOW
+			}
+			else{
+				tmp = scores_and_names[i].substr(3, scores_and_names.size()-1);
+				cout << i + 1 << ". " << tmp << " :" << setw(35 - tmp.size()-1);
+				SetConsoleTextAttribute(hConsole, 2); // COLOR::GREEN
+				cout << scores[i] << "\n";
+				SetConsoleTextAttribute(hConsole, 6); // COLOR::YELLOW
+			}
+		}
+		else{
+			// Check whether score has two digits
+			if ((scores[i] <= 9)){
+				tmp = scores_and_names[i].substr(2, scores_and_names.size());
+				cout << i + 1 << ". " << tmp << " :" << setw(34 - tmp.size());
+				SetConsoleTextAttribute(hConsole, 2); // COLOR::GREEN
+				cout << scores[i] << "\n";
+				SetConsoleTextAttribute(hConsole, 6); // COLOR::YELLOW
+			}
+			else{
+				tmp = scores_and_names[i].substr(3, scores_and_names.size());
+				cout << i + 1 << ". " << tmp << " :" << setw(34 - tmp.size());
+				SetConsoleTextAttribute(hConsole, 2); // COLOR::GREEN
+				cout << scores[i] << "\n";
+				SetConsoleTextAttribute(hConsole, 6); // COLOR::YELLOW
+			}
+		}
+	}
 }
 
 void sort(vector<int> &scores, vector<string> &names)
